@@ -1,0 +1,7 @@
+# Ignore everything by default
+/*
+
+# Include specific directories and their contents
+!/README.md
+!/.gitignore
+!/nvim/
