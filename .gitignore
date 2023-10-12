@@ -7,3 +7,4 @@
 !/nvim/
 !/tmux/
 /tmux/plugins/
+!/install.py
