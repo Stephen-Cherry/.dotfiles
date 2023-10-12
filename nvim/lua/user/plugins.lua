@@ -160,7 +160,7 @@ return {
             end)
 
             require('mason-lspconfig').setup({
-                ensure_installed = { 'csharp_ls', 'lua_ls', 'tsserver', 'html', 'jsonls', 'marksman',
+                ensure_installed = { 'csharp_ls', 'pylsp', 'lua_ls', 'tsserver', 'html', 'jsonls', 'marksman',
                     'pylsp' },
                 handlers = {
                     lsp_zero.default_setup,
