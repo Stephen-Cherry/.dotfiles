@@ -10,13 +10,13 @@ local function close_with_confirmation()
     if modified then
         local unsaved_changes = vim.fn['confirm']('Save changes before closing?', '&Yes\n&No\n&Cancel')
         if unsaved_changes == 1 then
-            vim.cmd 'wqa!'
+            vim.cmd 'wq!'
         elseif unsaved_changes == 2 then
-            vim.cmd 'qa!'
+            vim.cmd 'q!'
         end
     else
         -- If there are no changes, simply close the file
-        vim.cmd 'qa!'
+        vim.cmd 'q!'
     end
 end
 
