@@ -164,8 +164,7 @@ return {
             end)
 
             require('mason-lspconfig').setup({
-                ensure_installed = { 'csharp_ls', 'pylsp', 'lua_ls', 'tsserver', 'html', 'jsonls', 'marksman',
-                    'pylsp' },
+                ensure_installed = {},
                 handlers = {
                     lsp_zero.default_setup,
                     lua_ls = function()
@@ -207,6 +206,13 @@ return {
         opts = {
             ensure_installed = {
                 "black",
+                "csharp_ls",
+                "pylsp",
+                "lua_ls",
+                "tsserver",
+                "html",
+                "jsonls",
+                "marksman",
                 "selene",
                 "pylint",
                 "markdownlint",
