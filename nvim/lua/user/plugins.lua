@@ -4,6 +4,10 @@ return {
         dependencies = { 'nvim-lua/plenary.nvim' },
     },
     {
+        'Exafunction/codeium.vim',
+        event = 'BufEnter'
+    },
+    {
         'mfussenegger/nvim-lint',
         config = function()
             local lint = require('lint')

@@ -14,3 +14,10 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+-- Set Codeium default keys
+vim.keymap.set('i', '<M-CR>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+vim.keymap.set('i', '<M-]>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+vim.keymap.set('i', '<M-[>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+vim.keymap.set('i', '<M-C>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+vim.keymap.set('i', '<M-BS>', function() return vim.fn['codeium#Complete']() end, { expr = true })
