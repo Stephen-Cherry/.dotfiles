@@ -131,6 +131,9 @@ def main() -> None:
     if not is_package_installed("nvim", "--version"):
         missing_packages.append("neovim")
 
+    if not is_package_installed("go", "version"):
+        missing_packages.append("go")
+
     install_missing_packages(missing_packages)
 
     install_tpm()

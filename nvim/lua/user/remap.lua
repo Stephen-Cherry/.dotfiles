@@ -26,5 +26,5 @@ map("v", "<C-j>", ":m '>+1<CR>gv=gv")
 map("v", "<C-k>", ":m '<-2<CR>gv=gv")
 
 -- Move line up/down in normal mode
-map("n", "<C-j>", ":m +1<CR>")
-map("n", "<C-k>", ":m -2<CR>")
+map("n", "<M-j>", ":m +1<CR>")
+map("n", "<M-k>", ":m -2<CR>")
