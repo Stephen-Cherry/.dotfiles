@@ -1,6 +1,7 @@
 local wk = require('which-key')
 local dap = require 'dap'
 local dapui = require 'dapui'
+local telescope_builtins = require 'telescope.builtin'
 
 local function close_with_confirmation()
     -- Check if the buffer has pending changes
@@ -97,16 +98,15 @@ wk.register({
     ['f'] = { vim.lsp.buf.format, "Format" },
     ['s'] = {
         name = 'Search',
-        ['?'] = { '<cmd>Telescope oldfiles<cr>', 'Recently Opened Files' },
-        ['b'] = { '<cmd>Telescope buffers<cr>', 'Existing Buffers' },
-        ['c'] = { '<cmd>Telescope current_buffer_fuzzy_find<cr>', 'Current Buffer' },
-        ['g'] = { '<cmd>Telescope git_files<cr>', 'Git Files' },
-        ['f'] = { '<cmd>Telescope find_files<cr>', 'Git Files' },
-        ['h'] = { '<cmd>Telescope help_tags<cr>', 'Git Files' },
-        ['w'] = { '<cmd>Telescope grep_string<cr>', 'Git Files' },
-        ['l'] = { '<cmd>Telescope live_grep<cr>', 'Git Files' },
-        ['d'] = { '<cmd>Telescope diagnostics<cr>', 'Git Files' },
-        ['r'] = { '<cmd>Telescope resume<cr>', 'Git Files' },
+        ['?'] = { telescope_builtins.oldfiles, 'Recently Opened Files' },
+        ['b'] = { telescope_builtins.buffers, 'Existing Buffers' },
+        ['c'] = { telescope_builtins.current_buffer_fuzzy_find, 'Current Buffer' },
+        ['g'] = { telescope_builtins.git_files, 'Git Files' },
+        ['f'] = { telescope_builtins.find_files, 'Find Files' },
+        ['s'] = { function()
+            telescope_builtins.grep_string({ search = vim.fn.input 'Grep > ' })
+        end, 'Grep Search' },
+        ['d'] = { telescope_builtins.diagnostics, 'Diagnostics' },
     },
     ['d'] = {
         name = 'Diagnostics',
@@ -114,7 +114,6 @@ wk.register({
         ['n'] = { vim.diagnostic.goto_next, 'Next Message' },
         ['f'] = { vim.diagnostic.open_float, 'Floating Message' },
         ['l'] = { vim.diagnostic.setloclist, 'Open List' },
-        ['t'] = { '<cmd>TroubleToggle quickfix<cr>', 'Trouble' },
     },
     ['D'] = {
         name = 'Debug',
@@ -127,7 +126,7 @@ wk.register({
             function()
                 dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
             end,
-            'Set Breakpoint',
+            'Set Breakpoint w/ Condition',
         },
         ['l'] = { dapui.toggle, 'Last Results' },
     },
@@ -139,16 +138,11 @@ wk.register({
             name = 'Go To',
             ['d'] = { vim.lsp.buf.type_definition, 'Definition' },
             ['D'] = { vim.lsp.buf.declaration, 'Declaration' },
-            ['r'] = { '<cmd>Telescope lsp_references<cr>', 'References' },
-            ['a'] = { '<cmd>Telescope lsp_implementations<cr>', 'Implementation' },
-        },
-        ['s'] = {
-            name = 'Symbols',
-            ['d'] = { '<cmd>Telescope lsp_document_symbols<cr>', 'Implementation' },
-            ['w'] = { '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', 'Implementation' },
+            ['r'] = { telescope_builtins.lsp_references, 'References' },
+            ['a'] = { telescope_builtins.lsp_implementations, 'Implementation' },
         },
         ['h'] = { vim.lsp.buf.hover, 'Hover Documentation' },
-        ['S'] = { vim.lsp.buf.signature_help, 'Signature Documentation' },
+        ['s'] = { vim.lsp.buf.signature_help, 'Signature Documentation' },
     },
     ['e'] = { '<cmd>Ex<cr>', 'Explorer' },
     ['q'] = { close_with_confirmation, 'Quit' },
@@ -157,7 +151,5 @@ wk.register({
 }, { prefix = "<leader>", mode = 'n' })
 
 wk.register({
-    J = { ":m '>+1<CR>gv=gv", "Move Line Up" },
-    K = { ":m '<-2<CR>gv=gv", "Move Line Down" },
     p = { '[["_dP]]', "Paste No Overwrite" },
 }, { prefix = "<leader>", mode = 'v' })

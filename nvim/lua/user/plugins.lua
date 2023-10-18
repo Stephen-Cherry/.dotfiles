@@ -11,12 +11,22 @@ return {
         'mfussenegger/nvim-lint',
         config = function()
             local lint = require('lint')
+            local selene = lint.linters.selene
+            selene.args = {
+                "--config",
+                vim.fn.expand("~/.config/nvim/selene.toml"),
+                "--display-style",
+                "Json",
+                "-"
+            }
+
             lint.linters_by_ft = {
                 markdown = { "markdownlint", },
                 python = { "pylint", },
                 javascript = { "eslint_d", },
                 typescript = { "eslint_d", },
                 lua = { "selene", },
+                go = { "golangcilint", },
             }
             vim.api.nvim_create_autocmd({ "BufWritePost" }, {
                 callback = function()
@@ -24,6 +34,9 @@ return {
                 end,
             })
         end
+    },
+    {
+        'christoomey/vim-tmux-navigator'
     },
     {
         'nvim-lualine/lualine.nvim',
@@ -42,7 +55,25 @@ return {
     },
     {
         "rcarriga/nvim-dap-ui",
-        dependencies = { "mfussenegger/nvim-dap" }
+        dependencies = { "mfussenegger/nvim-dap" },
+        config = function()
+            local dap = require("dap")
+            local dapui = require("dapui")
+            dap.listeners.after.event_initialized["dapui_config"] = function()
+                dapui.open()
+            end
+            dap.listeners.before.event_terminated["dapui_config"] = function()
+                dapui.close()
+            end
+            dap.listeners.before.event_exited["dapui_config"] = function()
+                dapui.close()
+            end
+            dapui.setup()
+        end,
+    },
+    {
+        "lewis6991/gitsigns.nvim",
+        opts = {},
     },
     {
         "windwp/nvim-autopairs",
@@ -68,7 +99,7 @@ return {
             local configs = require("nvim-treesitter.configs")
 
             configs.setup({
-                ensure_installed = { "c_sharp", "lua", "vim", "vimdoc", "javascript", "python", "html" },
+                ensure_installed = { "c_sharp", "go", "lua", "vim", "vimdoc", "javascript", "python", "html" },
                 sync_install = false,
                 auto_install = true,
                 highlight = { enable = true },
@@ -207,6 +238,12 @@ return {
             ensure_installed = {
                 "black",
                 "csharp_ls",
+                "gopls",
+                'delve',
+                'debugpy',
+                "golines",
+                "goimports",
+                "golangci-lint",
                 "pylsp",
                 "lua_ls",
                 "tsserver",
@@ -219,5 +256,16 @@ return {
                 "eslint_d",
             }
         }
-    }
+    },
+    {
+        "leoluz/nvim-dap-go",
+        opts = {},
+    },
+    {
+        "mfussenegger/nvim-dap-python",
+        config = function()
+            local mason_path = vim.fn.glob(vim.fn.stdpath("data") .. "/mason/")
+            require("dap-python").setup(mason_path .. "packages/debugpy/venv/bin/python")
+        end
+    },
 }

@@ -1,23 +1,30 @@
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
+local map = vim.keymap.set
 
-vim.keymap.set("n", "Q", "<nop>")
+map("n", "<C-d>", "<C-d>zz")
+map("n", "<C-u>", "<C-u>zz")
+map("n", "n", "nzzzv")
+map("n", "N", "Nzzzv")
 
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+map("n", "Q", "<nop>")
 
 -- Disable Space (Used for leader key)
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+map({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Set Codeium default keys
-vim.keymap.set('i', '<M-CR>', function() return vim.fn['codeium#Accept']() end, { expr = true })
-vim.keymap.set('i', '<M-]>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-vim.keymap.set('i', '<M-[>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-vim.keymap.set('i', '<M-C>', function() return vim.fn['codeium#Clear']() end, { expr = true })
-vim.keymap.set('i', '<M-BS>', function() return vim.fn['codeium#Complete']() end, { expr = true })
+map('i', '<M-CR>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+map('i', '<M-]>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+map('i', '<M-[>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+map('i', '<M-C>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+map('i', '<M-BS>', function() return vim.fn['codeium#Complete']() end, { expr = true })
+
+-- Move line up/down in visual mode
+map("v", "<C-j>", ":m '>+1<CR>gv=gv")
+map("v", "<C-k>", ":m '<-2<CR>gv=gv")
+
+-- Move line up/down in normal mode
+map("n", "<C-j>", ":m +1<CR>")
+map("n", "<C-k>", ":m -2<CR>")
