@@ -4,7 +4,7 @@
 # Include specific directories and their contents
 !/README.md
 !/.gitignore
-!/nvim/
+!/lvim/
 !/tmux/
 /tmux/plugins/
 !/install.py
