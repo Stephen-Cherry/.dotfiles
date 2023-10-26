@@ -37,8 +37,8 @@ map('i', '<M-CR>', function() return vim.fn['codeium#Accept']() end, { expr = tr
 map('i', '<M-]>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
 map('i', '<M-[>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
 map('i', '<M-C>', function() return vim.fn['codeium#Clear']() end, { expr = true })
-
 map('i', '<M-BS>', function() return vim.fn['codeium#Complete']() end, { expr = true })
+
 -- Move line up/down in visual mode
 map("v", "<C-j>", ":m '>+1<CR>gv=gv")
 map("v", "<C-k>", ":m '<-2<CR>gv=gv")
