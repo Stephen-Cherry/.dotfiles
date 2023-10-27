@@ -167,7 +167,7 @@ lvim.plugins = {
         "selene",
         "markdownlint",
         "eslint_d",
-        "pylint",
+        "ruff",
         "black",
       }
     }
